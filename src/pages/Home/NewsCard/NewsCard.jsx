@@ -6,7 +6,7 @@ import Rating from 'react-rating';
 import { Link } from 'react-router-dom';
 
 const NewsCard = ({news}) => {
-    const {id, author, title, image_url, details, rating, total_view} = news
+    const {_id, author, title, image_url, details, rating, total_view} = news
     return (
         <div className='mb-4'>
             <Card className="">
@@ -28,7 +28,7 @@ const NewsCard = ({news}) => {
                 details.length < 250 ? <>{details}</> :
                <>
                {
-                details.slice(0, 250) }... <Link to={`/news/${id}`}
+                details.slice(0, 250) }... <Link to={`/news/${_id}`}
                  className='text-decoration-none text-warning'>Read More</Link>
                </>
                 
