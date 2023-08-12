@@ -1,22 +1,47 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main";
 import Home from "../pages/Home/Home/Home";
 import Category from "../pages/Home/Category/Category";
 import NewsDetails from "../pages/News/NewsDetails/NewsDetails";
 import NewsLayout from "../layout/NewsLayout";
+import LoginLayout from "../layout/LoginLayout";
+import Login from "../pages/Home/Login/Login";
+import Register from "../pages/Home/Register/Register";
+import PrivateRoute from "./PrivateRoute";
+
 
 
 const router = createBrowserRouter([
+  {
+    path: '/',
+    element:<LoginLayout></LoginLayout>,
+    children: [
+      {
+        path: '/',
+        element: <Navigate to="/category/0"></Navigate>
+
+      },
+      {
+        path: 'login',
+        element: <Login></Login>
+      },
+      {
+        path: 'register',
+        element: <Register></Register>
+      }
+    ]
+  },
     {
-      path: '/',
+      path: 'category',
       element: <Main></Main>,
       children:[
         {
-            path: '/',
-            element: <Home></Home>
+            path: 'category/0',
+            element: <Category></Category>,
+            loader : () => fetch(`http://localhost:3000/news`)
         },
         {
-          path: '/category/:id',
+          path: ':id',
           element: <Category></Category>,
           loader: ({params}) => fetch(`http://localhost:3000/category/${params.id}`)
         }
@@ -27,8 +52,8 @@ const router = createBrowserRouter([
       element: <NewsLayout></NewsLayout>,
       children: [
         {
-          path: '/news/:id',
-          element: <NewsDetails></NewsDetails>,
+          path: ':id',
+          element: <PrivateRoute><NewsDetails></NewsDetails></PrivateRoute>,
           loader : ({params}) => fetch(`http://localhost:3000/news/${params.id}`)
         }
       ]
