@@ -1,6 +1,8 @@
-### The NewsDragon
+# The NewsDragon
 
-# Here I have used:
+## Live-site: https://ph-the-news-dragon.web.app
+
+### Here I have used:
 1. React Bootstrap for layout and front-end making
 2. Firebase for authentication.
 3. Moment js for showing current date.
